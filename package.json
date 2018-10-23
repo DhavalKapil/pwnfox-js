@@ -1,0 +1,35 @@
+{
+  "name": "pwnfox.js",
+  "version": "0.0.1",
+  "description": "Spidermonkey Exploitation Toolkit",
+  "main": "src/pwnfox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DhavalKapil/pwnfox-js.git"
+  },
+  "keywords": [
+    "firefox",
+    "spidermonkey",
+    "mozjs",
+    "exploit",
+    "security"
+  ],
+  "author": "Dhaval Kapil <me@dhavalkapil.com> (https://dhavalkapil.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DhavalKapil/pwnfox-js/issues"
+  },
+  "homepage": "https://github.com/DhavalKapil/pwnfox-js#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "jshint": "^2.9.6",
+    "jshint-stylish": "^2.2.1"
+  }
+}
