@@ -14,10 +14,6 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('jshint-stylish'))
 });
 
-gulp.task('watch', function() {
-  gulp.watch(js_sources, gulp.series(['jshint']));
-});
-
 gulp.task('build', function() {
   return gulp.src(js_sources)
     .pipe(sourcemaps.init())
@@ -25,6 +21,13 @@ gulp.task('build', function() {
     .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(js_build));
+});
+
+gulp.task('watch', function() {
+  gulp.watch(js_sources, gulp.series([
+    'jshint',
+    'build'
+  ]));
 });
 
 gulp.task('default', gulp.series(['watch']));
