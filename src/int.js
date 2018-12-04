@@ -82,6 +82,13 @@ Int64.prototype.subOp = operation(function sub(num) {
   return this;
 }, 1);
 
+Int64.prototype.invertOp = operation(function invert() {
+  for (var i = 0; i < 8;i++) {
+    this.memory[i] = ~this.memory[i];
+  }
+  return this;
+}, 0);
+
 Int64.prototype.lshift1Op = operation(function lshift1() {
   var highBit = 0;
   for (var i = 0; i < 8; i++) {
@@ -136,6 +143,10 @@ Int64.sub = function(obj1, obj2) {
   return Int64.copy(obj1).subOp(obj2);
 };
 
+Int64.invert = function(obj) {
+  return Int64.copy(obj).invertOp();
+};
+
 Int64.lshift1 = function(obj) {
   return Int64.copy(obj).lshift1Op();
 };
@@ -156,3 +167,41 @@ Int64.xor = function(obj1, obj2) {
   return Int64.copy(obj1).xorOp(obj2);
 };
 
+// Some constants
+Int64.zero = new Int64(0, 0);
+Int64.one = new Int64(1, 0);
+
+// Integer related parsing functions
+
+// Works only for < 32 bit integers
+function unpack(byte_arr, size) {
+  if (byte_arr.length != (size/8)) {
+    throw Error("Invalid byte_arr size for unpack(): " + byte_arr.length);
+  }
+  if (size > 32) {
+    throw Error("Cannot use unpack() for sizes more than 32");
+  }
+  var val = 0;
+  for (var i = (size/8)-1; i>=0; i--) {
+    val = 0x100*val + byte_arr[i];
+  }
+  return val;
+}
+
+function u8(byte_arr) {
+  return unpack(byte_arr, 8);
+}
+
+function u16(byte_arr) {
+  return unpack(byte_arr, 16);
+}
+
+function u32(byte_arr) {
+  return unpack(byte_arr, 32);
+}
+
+function u64(byte_arr) {
+  var lower = u32(byte_arr.slice(0, 4));
+  var upper = u32(byte_arr.slice(4, 8));
+  return new Int64(lower, upper);
+}
